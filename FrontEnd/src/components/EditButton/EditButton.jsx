@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEditProfile } from '../../redux/reducers/profileSlice';
 import TextInput from '../TextInput/Textinput';
@@ -9,11 +9,20 @@ export default function EditButton() {
 	const profile = useSelector(state => state.profile);
 	const [isEditing, setIsEditing] = useState(false);
 	const [newUserName, setNewUserName] = useState(profile.userName);
+	const [error, setError] = useState('');
 
 	const dispatch = useDispatch();
 
+	useEffect(() => {
+		setNewUserName(profile.userName);
+	}, [profile.userName]);
+
 	const editUserName = async e => {
 		e.preventDefault();
+		if (!newUserName) {
+			setError('The field cannot be empty.');
+			return;
+		}
 		try {
 			const response = await fetch(
 				'http://localhost:3001/api/v1/user/profile',
@@ -45,9 +54,13 @@ export default function EditButton() {
 						id="username"
 						type="text"
 						autoComplete="username"
-						onChange={e => setNewUserName(e.target.value)}
+						onChange={e => {
+							setNewUserName(e.target.value);
+							setError('');
+						}}
 						value={newUserName}
 					/>
+					{error && <p className="error-message">{error}</p>}
 					<br />
 					<Button className="edit-button" onClick={editUserName}>
 						Save
