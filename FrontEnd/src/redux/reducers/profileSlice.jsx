@@ -21,11 +21,15 @@ const profileSlice = createSlice({
 		setEditProfile: (state, action) => {
 			state.userName = action.payload;
 		},
+		resetProfile: () => {
+			return initialState;
+		},
 	},
 });
 
 // Extrait les actions générées par createSlice pour être utilisées ailleurs
-export const { setGetProfile, setEditProfile } = profileSlice.actions;
+export const { setGetProfile, setEditProfile, resetProfile } =
+	profileSlice.actions;
 
 // Exporte le réducteur (reducer) généré par createSlice
 export default profileSlice.reducer;
