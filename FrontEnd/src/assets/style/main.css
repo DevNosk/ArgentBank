@@ -251,6 +251,11 @@ body {
   font-weight: normal;
 }
 
+.disabled-input input {
+  background-color: #929191;
+  color: #5f5f5f;
+}
+
 .account-content-wrapper {
   width: 100%;
   flex: 1;
@@ -262,6 +267,7 @@ body {
   color: #fff;
   font-weight: bold;
   padding: 10px;
+  margin: 5px;
 }
 
 .header {

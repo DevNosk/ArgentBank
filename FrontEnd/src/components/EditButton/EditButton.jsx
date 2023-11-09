@@ -45,12 +45,18 @@ export default function EditButton() {
 		}
 	};
 
+	const cancelEdit = () => {
+		setIsEditing(false);
+		setNewUserName(profile.userName);
+		setError('');
+	};
+
 	return (
 		<div>
 			{isEditing ? (
 				<div>
 					<TextInput
-						label="Username "
+						label="Username"
 						id="username"
 						type="text"
 						autoComplete="username"
@@ -62,14 +68,43 @@ export default function EditButton() {
 					/>
 					{error && <p className="error-message">{error}</p>}
 					<br />
+					<TextInput
+						label="First Name"
+						id="firstName"
+						type="text"
+						autoComplete="given-name"
+						onChange={e => {}}
+						value={profile.firstName}
+						disabled
+						className="disabled-input" // Ajout de la classe pour les styles CSS
+					/>
+					<br />
+					<TextInput
+						label="Last Name"
+						id="lastName"
+						type="text"
+						autoComplete="family-name"
+						onChange={e => {}}
+						value={profile.lastName}
+						disabled
+						className="disabled-input" // Ajout de la classe pour les styles CSS
+					/>
+					<br />
 					<Button className="edit-button" onClick={editUserName}>
 						Save
 					</Button>
+					<Button className="edit-button" onClick={cancelEdit}>
+						Cancel
+					</Button>
 				</div>
 			) : (
-				<Button className="edit-button" onClick={() => setIsEditing(true)}>
-					Edit UserName
-				</Button>
+				<div>
+					<p>First Name: {profile.firstName}</p>
+					<p>Last Name: {profile.lastName}</p>
+					<Button className="edit-button" onClick={() => setIsEditing(true)}>
+						Edit UserName
+					</Button>
+				</div>
 			)}
 		</div>
 	);
